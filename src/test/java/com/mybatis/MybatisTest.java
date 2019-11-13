@@ -2,6 +2,7 @@ package com.mybatis;
 
 import com.mybatis.bean.Employee;
 import com.mybatis.mapper.EmployeeMapper;
+import com.mybatis.mapper.EmployeeMapperAnnotation;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -30,6 +31,19 @@ import java.io.InputStream;
 public class MybatisTest {
 
 
+    private SqlSessionFactory sqlSessionFactory;
+
+    {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = null;
+        try {
+            inputStream = Resources.getResourceAsStream(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    }
+
     /**
      * 1. 根据 xml 配置文件（全局配置文件）创建一个 SqlSessionFactory 对象
      *      1）、有数据源一些运行环境信息
@@ -43,10 +57,7 @@ public class MybatisTest {
      * @throws IOException
      */
     @Test
-    public void test () throws IOException {
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    public void test (){
 
 /*
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -75,5 +86,14 @@ public class MybatisTest {
             Employee employee = mapper.selectEmpById(1);
             System.out.println(employee);
         }
+    }
+
+    @Test
+    public void test02 () {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMapperAnnotation mapper = sqlSession.getMapper(EmployeeMapperAnnotation.class);
+        Employee emp = mapper.getEmpById(1);
+        System.out.println(emp);
+
     }
 }

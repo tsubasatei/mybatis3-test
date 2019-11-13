@@ -1,8 +1,12 @@
 package com.mybatis.bean;
 
+import org.apache.ibatis.type.Alias;
+
 /**
  * 员工
+ * @Alias : 注解为某个类型指定新的别名
  */
+//@Alias("employee")
 public class Employee {
     private Integer id;
     private String lastName;
