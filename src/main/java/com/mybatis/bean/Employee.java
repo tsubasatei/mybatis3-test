@@ -25,6 +25,14 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(Integer id, String lastName, String gender, String email, Department department) {
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

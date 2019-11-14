@@ -11,6 +11,11 @@ public class Department {
     private String departmentName;
     private List<Employee> employees;
 
+    public Department(Integer id, String departmentName) {
+        this.id = id;
+        this.departmentName = departmentName;
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }

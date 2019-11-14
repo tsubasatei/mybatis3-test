@@ -2,10 +2,7 @@ package com.mybatis;
 
 import com.mybatis.bean.Department;
 import com.mybatis.bean.Employee;
-import com.mybatis.mapper.DepartmentMapper;
-import com.mybatis.mapper.EmployeeMapper;
-import com.mybatis.mapper.EmployeeMapperAnnotation;
-import com.mybatis.mapper.EmployeePlusMapper;
+import com.mybatis.mapper.*;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,9 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 1. 接口式编程
@@ -199,4 +194,61 @@ public class MybatisTest {
         }
     }
 
+    /**
+     * 查询的时候如果某些条件没带可能 sql 拼装会有问题
+     *  1、给where后面加上 1=1，以后的条件都 and xxx.
+     * 	2、mybatis使用 where标签来将所有的查询条件包括在内。
+     * 	    mybatis就会将where标签中拼装的sql，多出来的 and 或者 or去掉
+     * 		where只会去掉第一个多出来的 and 或者 or。
+     */
+    @Test
+    public void test06 () {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()){
+            EmployeeDynamicSQLMapper mapper = sqlSession.getMapper(EmployeeDynamicSQLMapper.class);
+            Employee emp = new Employee(1, "Admin", "0", "");
+//            List<Employee> emps = mapper.getEmpsByConditionIf(emp);
+//            System.out.println(emps);
+
+//            System.out.println("=========");
+//            List<Employee> emps2 = mapper.getEmpsByConditionTrim(emp);
+//            System.out.println(emps2);
+
+//            List<Employee> chooseEmp = mapper.getEmpsByConditionChoose(emp);
+//            System.out.println(chooseEmp);
+
+//            mapper.updateEmp(emp);
+
+            // foreach
+            List<Employee> empsByConditionForEach = mapper.getEmpsByConditionForEach(Arrays.asList(1, 2, 5));
+            System.out.println(empsByConditionForEach);
+
+            sqlSession.commit();
+        }
+    }
+
+    @Test
+    public void test07 () {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()){
+            EmployeeDynamicSQLMapper mapper = sqlSession.getMapper(EmployeeDynamicSQLMapper.class);
+            List<Employee> emps = new ArrayList<>();
+            Employee employee = new Employee(null, "AA2", "0", "aa@163.com", new Department(1, "开发部"));
+            Employee employee1 = new Employee(null, "BB2", "1", "bb@163.com", new Department(2, "测试部"));
+            Employee employee2 = new Employee(null, "CC2", "0", "cc@163.com", new Department(1, "开发部"));
+            emps.add(employee);
+            emps.add(employee1);
+            emps.add(employee2);
+            mapper.addEmps(emps);
+
+            sqlSession.commit();
+        }
+    }
+
+    @Test
+    public void test08 () {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            EmployeeDynamicSQLMapper mapper = sqlSession.getMapper(EmployeeDynamicSQLMapper.class);
+            List<Employee> emps = mapper.getEmpsTestInnerParameter(new Employee(null, "c", null, null));
+            System.out.println(emps);
+        }
+    }
 }
