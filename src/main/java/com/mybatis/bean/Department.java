@@ -1,11 +1,12 @@
 package com.mybatis.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 部门
  */
-public class Department {
+public class Department implements Serializable {
 
     private Integer id;
     private String departmentName;

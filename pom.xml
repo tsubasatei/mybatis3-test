@@ -16,6 +16,8 @@
         <mysql.version>8.0.15</mysql.version>
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>
+        <mybatis-ehcache.version>1.1.0</mybatis-ehcache.version>
+        <slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
     </properties>
 
     <dependencies>
@@ -39,6 +41,19 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.caches</groupId>
+            <artifactId>mybatis-ehcache</artifactId>
+            <version>${mybatis-ehcache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

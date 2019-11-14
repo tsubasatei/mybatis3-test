@@ -2,12 +2,14 @@ package com.mybatis.bean;
 
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 /**
  * 员工
  * @Alias : 注解为某个类型指定新的别名
  */
 //@Alias("employee")
-public class Employee {
+public class Employee implements Serializable {
     private Integer id;
     private String lastName;
     private String gender;
