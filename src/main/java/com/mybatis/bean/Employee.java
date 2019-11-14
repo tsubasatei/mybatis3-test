@@ -13,6 +13,18 @@ public class Employee {
     private String gender;
     private String email;
 
+    private Department department;
+
+    public Employee(Integer id, String lastName, String gender, String email) {
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+    }
+
+    public Employee() {
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -20,6 +32,7 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
+                ", department=" + department +
                 '}';
     }
 
@@ -53,5 +66,13 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

@@ -13,4 +13,53 @@
     <select id="selectEmpById" resultType="com.mybatis.bean.Employee">
         select * from tbl_employee where id = #{id}
     </select>
+
+    <!--
+        parameterType：参数类型，可以省略
+
+        获取自增主键的值：
+            mybatis支持自增主键，自增主键值的获取，mybatis 也是利用 statement.getGeneratedKeys()
+            useGeneratedKeys="true" : 使用自增主键获取主键值策略
+            keyProperty：指定对应的逐渐属性，mybatis 获取到主键值以后，将这个值封装给 javaBean 的哪个属性
+    -->
+    <insert id="insertEmp" parameterType="com.mybatis.bean.Employee"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into tbl_employee(last_name, gender, email)
+        values(#{lastName}, #{gender}, #{email})
+    </insert>
+
+    <update id="updateEmp">
+        update tbl_employee
+        set last_name=#{lastName},
+            gender=#{gender},
+            email=#{email}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteEmp">
+        delete from tbl_employee where id=#{id}
+    </delete>
+
+    <select id="getEmpByIdAndLastName" resultType="com.mybatis.bean.Employee">
+        select * from tbl_employee where id=#{id} and last_name=#{lastName}
+    </select>
+
+    <select id="getEmpByMap" resultType="com.mybatis.bean.Employee">
+        select * from tbl_employee where id=#{id} and last_name=#{lastName}
+    </select>
+
+    <!--
+        resultType：如果返回的是一个集合，要写集合中元素的类型
+    -->
+    <select id="getEmpNameLike" resultType="com.mybatis.bean.Employee">
+        select * from tbl_employee where last_name like #{lastName}
+    </select>
+
+    <select id="getEmpByIdReturnMap" resultType="map">
+        select * from tbl_employee where id=#{id}
+    </select>
+
+    <select id="getEmpByLastNameLikeReturnMap" resultType="com.mybatis.bean.Employee">
+        select * from tbl_employee where last_name like #{lastName}
+    </select>
 </mapper>

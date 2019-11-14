@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.DepartmentMapper">
+
+    <select id="getDeptById" resultType="com.mybatis.bean.Department">
+        select * from tbl_department where id=#{id}
+    </select>
+
+    <!--嵌套结果集的方式，使用 collection 标签定义关联的集合类型的属性封装规则  -->
+    <resultMap id="MyDept" type="com.mybatis.bean.Department">
+        <id column="did" property="id"/>
+        <result column="dept_name" property="departmentName"/>
+        <!--
+			collection: 定义关联集合类型的属性的封装规则
+			ofType: 指定集合里面元素的类型
+		-->
+        <collection property="employees" ofType="com.mybatis.bean.Employee">
+            <!-- 定义这个集合中元素的封装规则 -->
+            <id column="id" property="id"/>
+            <result column="last_name" property="lastName"/>
+            <result column="gender" property="gender"/>
+            <result column="email" property="email"/>
+        </collection>
+    </resultMap>
+    <select id="getDeptByIdPlus" resultMap="MyDept">
+        SELECT d.`id` did, d.`department_name` dept_name, e.`id` id, e.`last_name` last_name, e.`gender` gender, e.`email` email 
+        FROM tbl_department d
+        LEFT JOIN tbl_employee e
+        ON d.`id`=e.`d_id`
+        WHERE d.`id`= #{id}
+    </select>
+
+    <!-- collection：分段查询 -->
+    <resultMap id="MyDeptStep" type="com.mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="department_name" property="departmentName"/>
+        <collection property="employees"
+                    select="com.mybatis.mapper.EmployeePlusMapper.getEmpsByDeptId"
+                    column="{deptId=id}" fetchType="lazy"/>
+    </resultMap>
+    <!-- 扩展：多列的值传递过去：
+			将多列的值封装 map 传递；
+			column="{key1=column1,key2=column2}"
+		fetchType="lazy"：表示使用延迟加载；
+				- lazy：延迟
+				- eager：立即
+	 -->
+    <select id="getDeptByIdStep" resultMap="MyDeptStep">
+        select * from tbl_department where id=#{id}
+    </select>
+</mapper>

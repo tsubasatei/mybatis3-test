@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <mybatis.version>3.4.6</mybatis.version>
+        <mybatis.version>3.5.1</mybatis.version>
         <mysql.version>8.0.15</mysql.version>
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>

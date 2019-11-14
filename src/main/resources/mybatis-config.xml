@@ -21,6 +21,17 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!--<setting name="logImpl" value="LOG4J"/>-->
+
+        <!-- 显示的指定每个需要更改的配置的值，即使是默认的，防止版本更新带来的问题 -->
+        <!-- 打开延迟加载的开关 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+
+        <!-- 将积极加载改为消息加载即按需加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+
+        <!-- 指定哪个对象的方法触发一次延迟加载。默认值：equals,clone,hashCode,toString(如果不配置,使用println()会触发延迟加载)  -->
+        <!--<setting name="lazyLoadTriggerMethods" value="" />-->
+
     </settings>
 
     <!--
