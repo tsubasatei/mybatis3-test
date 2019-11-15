@@ -35,4 +35,6 @@ public interface EmployeeMapper {
      */
     @MapKey("id")
     Map<Integer, Employee> getEmpByLastNameLikeReturnMap(String lastName);
+
+    List<Employee> getEmps();
 }

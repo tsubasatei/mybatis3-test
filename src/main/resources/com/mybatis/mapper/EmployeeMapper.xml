@@ -85,4 +85,15 @@
     <select id="getEmpByLastNameLikeReturnMap" resultType="com.mybatis.bean.Employee">
         select * from tbl_employee where last_name like #{lastName}
     </select>
+
+    <resultMap id="MySimEmp" type="com.mybatis.bean.Employee">
+        <id property="id" column="id"></id>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <association property="department" select="com.mybatis.mapper.DepartmentMapper.getDeptById" column="d_id"/>
+    </resultMap>
+    <select id="getEmps" resultMap="MySimEmp">
+        select * from tbl_employee
+    </select>
 </mapper>
