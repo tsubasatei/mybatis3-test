@@ -1,9 +1,14 @@
 package com.mybatis;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mybatis.bean.Department;
+import com.mybatis.bean.EmpStatus;
 import com.mybatis.bean.Employee;
 import com.mybatis.mapper.*;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -11,6 +16,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.*;
 
 /**
@@ -347,8 +354,85 @@ public class MybatisTest {
             DepartmentMapper mapper1 = sqlSession1.getMapper(DepartmentMapper.class);
             Department dept1 = mapper1.getDeptById(1);
             System.out.println(dept1);
-
-
         }
+    }
+
+    @Test
+    public void testPageHelper () {
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+            Page<Object> page = PageHelper.startPage(1, 5);
+            List<Employee> emps = mapper.getEmps();
+            System.out.println(emps);
+/*
+
+            System.out.println("当前页码：" + page.getPageNum());
+            System.out.println("总记录数：" + page.getTotal());
+            System.out.println("每页的记录数：" + page.getPageSize());
+            System.out.println("总页码：" + page.getPages());
+*/
+
+            PageInfo<Employee> info = new PageInfo<>(emps, 5);
+            System.out.println("当前页码：" + info.getPageNum());
+            System.out.println("总记录数：" + info.getTotal());
+            System.out.println("每页的记录数："+info.getPageSize());
+            System.out.println("总页码："+ info.getPages());
+            System.out.println("是否第一页：" + info.isIsFirstPage());
+            System.out.println("连续显示的页码：");
+            int[] nums = info.getNavigatepageNums();
+            for (int num : nums) {
+                System.out.println(num);
+            }
+        }
+    }
+
+    /**
+     * 批量：（预编译sql一次==>设置参数===>10000次===>执行（1次））
+     * Parameters: 616c1(String), b(String), 1(String)==>4598
+     * 非批量：（预编译sql=设置参数=执行）==》10000    10200
+     */
+    @Test
+    public void testBatch () {
+        //可以执行批量操作的sqlSession
+        try (SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH)){
+            long start = System.currentTimeMillis();
+            EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+            for (int i=0; i<5; i++) {
+                mapper.insertEmp(new Employee(null, UUID.randomUUID().toString().substring(0, 5), "0", "aa@163.com"));
+            }
+            sqlSession.commit();
+            long end = System.currentTimeMillis();
+            System.out.println("总时长(ms)：" + (end - start));
+        }
+    }
+
+    @Test
+    public void testEnumUse(){
+        EmpStatus login = EmpStatus.LOGIN;
+        System.out.println("枚举的索引：" + login.ordinal());
+        System.out.println("枚举的名字：" + login.name());
+
+        System.out.println("枚举的状态码：" + login.getCode());
+        System.out.println("枚举的提示消息："+ login.getMsg());
+    }
+
+    /**
+     * 默认 mybatis 在处理枚举对象的时候保存的是枚举的名字：EnumTypeHandler
+     * 改变使用：EnumOrdinalTypeHandler：
+     * @throws IOException
+     */
+    @Test
+    public void testEnum () {
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+//            Employee employee = new Employee(null, "Sanae", "1", "sanae@163.com", EmpStatus.LOGIN);
+//            mapper.insertEmp(employee);
+//            System.out.println("保存成功，id = " + employee.getId());
+//            sqlSession.commit();
+
+            Employee emp = mapper.selectEmpById(21);
+            System.out.println(emp.getEmpStatus());
+        }
+
     }
 }

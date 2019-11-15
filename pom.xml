@@ -22,6 +22,7 @@
         <spring.version>5.2.0.RELEASE</spring.version>
         <c3p0.version>0.9.5.2</c3p0.version>
         <jstl.version>1.2</jstl.version>
+        <pagehelper.version>5.1.10</pagehelper.version>
     </properties>
 
     <dependencies>
@@ -132,11 +133,11 @@
             </exclusions>
         </dependency>
 
-        <!-- 或在页面加 <%@ page  isELIgnored = "false" %> -->
-        <!--<dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.2.1-b03</version>
-        </dependency>-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

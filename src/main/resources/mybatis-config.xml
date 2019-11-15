@@ -58,13 +58,30 @@
         <!--3、批量起别名的情况下，使用 @Alias 注解为某个类型指定新的别名-->
     </typeAliases>
 
+    <typeHandlers>
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>-->
+
+        <!--1、配置我们自定义的TypeHandler  -->
+        <typeHandler handler="com.mybatis.typehandler.EmpStatusTypeHandler" javaType="com.mybatis.bean.EmpStatus"/>
+
+        <!--2、也可以在处理某个字段的时候告诉 MyBatis 用什么类型处理器
+				保存：#{empStatus,typeHandler=xxxx}
+				查询：
+					<resultMap type="com.atguigu.mybatis.bean.Employee" id="MyEmp">
+				 		<id column="id" property="id"/>
+				 		<result column="empStatus" property="empStatus" typeHandler=""/>
+				 	</resultMap>
+				注意：如果在参数位置修改TypeHandler，应该保证保存数据和查询数据用的TypeHandler是一样的。
+		  -->
+    </typeHandlers>
     <!-- plugins: 注册插件 -->
     <plugins>
-        <plugin interceptor="com.mybatis.intetceptor.MyFirstInterceptor">
+        <!--<plugin interceptor="com.mybatis.intetceptor.MyFirstInterceptor">
             <property name="username" value="root"/>
             <property name="password" value="root"/>
         </plugin>
-        <plugin interceptor="com.mybatis.intetceptor.MySecondInterceptor"/>
+        <plugin interceptor="com.mybatis.intetceptor.MySecondInterceptor"/>-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
     </plugins>
 
     <!--

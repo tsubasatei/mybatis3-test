@@ -17,6 +17,8 @@ public class Employee implements Serializable {
 
     private Department department;
 
+    private EmpStatus empStatus;
+
     public Employee(Integer id, String lastName, String gender, String email) {
         this.id = id;
         this.lastName = lastName;
@@ -33,6 +35,14 @@ public class Employee implements Serializable {
         this.gender = gender;
         this.email = email;
         this.department = department;
+    }
+
+    public Employee(Integer id, String lastName, String gender, String email, EmpStatus empStatus) {
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+        this.empStatus = empStatus;
     }
 
     @Override
@@ -84,5 +94,13 @@ public class Employee implements Serializable {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public EmpStatus getEmpStatus() {
+        return empStatus;
+    }
+
+    public void setEmpStatus(EmpStatus empStatus) {
+        this.empStatus = empStatus;
     }
 }

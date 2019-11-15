@@ -47,8 +47,8 @@
     -->
     <insert id="insertEmp" parameterType="com.mybatis.bean.Employee"
             useGeneratedKeys="true" keyProperty="id">
-        insert into tbl_employee(last_name, gender, email)
-        values(#{lastName}, #{gender}, #{email})
+        insert into tbl_employee(last_name, gender, email, emp_status)
+        values(#{lastName}, #{gender}, #{email}, #{empStatus})
     </insert>
 
     <update id="updateEmp">
