@@ -19,7 +19,7 @@
 <!-- 
 属性说明：
 l diskStore：指定数据在磁盘中的存储位置。
-l defaultCache：当借助CacheManager.add("demoCache")创建Cache时，EhCache便会采用<defalutCache/>指定的的管理策略
+l defaultCache：当借助CacheManager.add("demoCache")创建Cache时，EhCache便会采用<defaultCache/>指定的的管理策略
  
 以下属性是必须的：
 l maxElementsInMemory - 在内存中缓存的element的最大数目 

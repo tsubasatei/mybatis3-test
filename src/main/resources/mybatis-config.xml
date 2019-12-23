@@ -37,7 +37,7 @@
     </settings>
 
     <!--
-        3、typeAliases：别名处理器：可以为我们的java类型起别名
+        3、typeAliases：别名处理器：可以为我们的 java 类型起别名
 			别名不区分大小写
 	-->
 

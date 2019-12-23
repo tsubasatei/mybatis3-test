@@ -27,7 +27,7 @@ import java.util.*;
  *
  * 2、SqlSession代表和数据库的一次会话；用完必须关闭；
  *
- * 3、SqlSession 和 connection一样她都是非线程安全。每次使用都应该去获取新的对象。
+ * 3、SqlSession 和 connection一样它都是非线程安全。每次使用都应该去获取新的对象。
  *
  * 4、mapper 接口没有实现类，但是 mybatis会为这个接口生成一个代理对象。（将接口和 xml进行绑定）
  * 		EmployeeMapper empMapper =	sqlSession.getMapper(EmployeeMapper.class);
@@ -312,6 +312,7 @@ public class MybatisTest {
     public void testFirstLevelCache () {
         try(SqlSession sqlSession = sqlSessionFactory.openSession();
             SqlSession sqlSession1 = sqlSessionFactory.openSession()){
+
             EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
             Employee employee = mapper.selectEmpById(1);
             System.out.println(employee);
@@ -329,6 +330,7 @@ public class MybatisTest {
     public void testSecondLevelCache () {
         try(SqlSession sqlSession = sqlSessionFactory.openSession();
             SqlSession sqlSession1 = sqlSessionFactory.openSession()){
+
             EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
             Employee emp = mapper.selectEmpById(1);
             System.out.println(emp);
@@ -346,6 +348,7 @@ public class MybatisTest {
     public void testSecondLevelCache2 () {
         try(SqlSession sqlSession = sqlSessionFactory.openSession();
             SqlSession sqlSession1 = sqlSessionFactory.openSession()){
+
             DepartmentMapper mapper = sqlSession.getMapper(DepartmentMapper.class);
             Department dept = mapper.getDeptById(1);
             System.out.println(dept);

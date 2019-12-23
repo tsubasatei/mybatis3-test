@@ -27,7 +27,7 @@
         true：只读；mybatis 认为所有从缓存中获取数据的操作都是只读操作，不会修改数据。
                  mybatis 为了加快获取速度，直接就会将数据在缓存中的引用交给用户。不安全，速度快
         false：非只读：mybatis 觉得获取的数据可能会被修改。
-                mybatis 会利用序列化&反序列的技术克隆一份新的数据给你。安全，速度慢
+                mybatis 会利用序列化&反序列的技术克隆一份新的数据给你。安全，速度慢, 默认false
     size：缓存存放多少元素；
     type=""：指定自定义缓存的全类名；
             实现 Cache 接口即可；
@@ -43,7 +43,7 @@
         获取自增主键的值：
             mybatis支持自增主键，自增主键值的获取，mybatis 也是利用 statement.getGeneratedKeys()
             useGeneratedKeys="true" : 使用自增主键获取主键值策略
-            keyProperty：指定对应的逐渐属性，mybatis 获取到主键值以后，将这个值封装给 javaBean 的哪个属性
+            keyProperty：指定对应的主键属性，mybatis 获取到主键值以后，将这个值封装给 javaBean 的那个属性
     -->
     <insert id="insertEmp" parameterType="com.mybatis.bean.Employee"
             useGeneratedKeys="true" keyProperty="id">

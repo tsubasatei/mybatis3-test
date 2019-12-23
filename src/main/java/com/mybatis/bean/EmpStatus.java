@@ -1,6 +1,5 @@
 package com.mybatis.bean;
 
-
 public enum EmpStatus {
     LOGIN(100, "用户登录"), LOGOUT(101, "用户登出"), REMOVE(102, "用户不存在");
 

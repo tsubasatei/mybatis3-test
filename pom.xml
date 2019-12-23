@@ -7,6 +7,7 @@
     <groupId>com.xt.mybatis3</groupId>
     <artifactId>mybatis3-test</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <description>mybatis3</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,9 +21,10 @@
         <slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
         <mybatis-spring.version>2.0.3</mybatis-spring.version>
         <spring.version>5.2.0.RELEASE</spring.version>
-        <c3p0.version>0.9.5.2</c3p0.version>
+        <c3p0.version>0.9.5.4</c3p0.version>
         <jstl.version>1.2</jstl.version>
         <pagehelper.version>5.1.10</pagehelper.version>
+        <lombok.version>1.18.8</lombok.version>
     </properties>
 
     <dependencies>
@@ -137,6 +139,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>${pagehelper.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
     </dependencies>
