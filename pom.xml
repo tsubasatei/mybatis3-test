@@ -15,7 +15,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <mybatis.version>3.5.1</mybatis.version>
         <mysql.version>8.0.15</mysql.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <mybatis-ehcache.version>1.1.0</mybatis-ehcache.version>
         <slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
