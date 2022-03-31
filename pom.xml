@@ -20,7 +20,7 @@
         <mybatis-ehcache.version>1.1.0</mybatis-ehcache.version>
         <slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
         <mybatis-spring.version>2.0.3</mybatis-spring.version>
-        <spring.version>5.2.0.RELEASE</spring.version>
+        <spring.version>5.3.18</spring.version>
         <c3p0.version>0.9.5.4</c3p0.version>
         <jstl.version>1.2</jstl.version>
         <pagehelper.version>5.1.10</pagehelper.version>
